@@ -1,11 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './CSS/logo.svg';
+import './CSS/bottomInfo.css';
 
 function poweredBy() {
     return (
         <div class="App">
-            <header className="App-header">
+            <header className="bottominfo-header">
                 <p>Powered by React<img src={logo} className="App-logo" alt="logo" /></p>
             </header>
         </div>

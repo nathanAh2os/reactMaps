@@ -1,12 +1,10 @@
 import React from 'react';
-import './App.css';
-import './menu.css';
+import './CSS/menu.css';
 
 function Menu(props) {
     return <div class="topMenu">
-        <p>Testing!</p>
-        <line class="line"></line>
-        <hr class="line"></hr>
+        <p>React Map Project</p>
+        <button class="topMenuButtons">Solar System</button>
     </div>
 }
 

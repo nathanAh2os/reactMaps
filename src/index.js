@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './CSS/index.css';
 //import App from './App';
 import Menu from './menu';
 import BottomInfo from './bottomInfo';
+import SolarSystemMap from './solarSystemMap';
 import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
   <React.StrictMode>
     <Menu />
+    <SolarSystemMap />
     <BottomInfo />
   </React.StrictMode>,
   document.getElementById('root')
