@@ -55,11 +55,13 @@ export const planetPositions = {
         semiMajorAxis: [39.48211675, -0.00031596], eccentricity: [0.24882730, 0.00005170], inclination: [17.14001206, 0.00004818],
         meanLongitude: [238.92903833, 145.20780515], longitudePerihelion: [224.06891629, -0.04062942], longitudeAscendNode: [110.30393684, -0.01183482]
     },
-
+    orderedCalculations(planet, julianEphemerisDate) {
+        planetPositions.trueKeplerianValues(planet, julianEphemerisDate);
+        planetPositions.calculateMeanAnomaly();
+        planetPositions.calculateEccentricAnomaly();
+    },
     trueKeplerianValues(planet, julianEphemerisDate) {
-        console.log(julianEphemerisDate);
         let numberOfCenturiesPast = ((julianEphemerisDate - 2451545) / 36525);
-        console.log(numberOfCenturiesPast);
         //1) Compute the true value of each of the planet's six Keplerian elements based on a Julian Date
         switch (planet) {
             case "mercury":
@@ -138,24 +140,16 @@ export const planetPositions = {
                 break;
         }
     },
-
     calculateMeanAnomaly() {
         //2) Compute argument of perihelion, and mean anomaly, M
         //We obtain the modulas of the mean anomaly between -360 <= M <= 360
         //let perihelion = this.longitudePerihelion - this.longitudeAscendNode;
         this.meanAnomaly = this.meanLongitude - this.longitudePerihelion;
         this.meanAnomaly = this.meanAnomaly * Math.PI / 180;
-        console.log("semiMajorAxis: " + this.semiMajorAxis);
-        console.log("Eccentricity: " + this.eccentricity);
-        console.log("Inclination: " + this.inclination);
-        console.log("Long. Ascend Node: " + this.longitudeAscendNode);
-        console.log("Long. Perihelion: " + this.longitudePerihelion);
-        console.log('meanAnomaly: ' + this.meanAnomaly);
     },
-
     calculateEccentricAnomaly() {
         //To calculate the eccentric anomaly, we use Kepler's equation --> meanAnomaly = eccentricAnomaly - (eccentricity)sin(eccentricAnomaly) --> M = E = eSin(E)
-        //However, Kepler's equation cannot be solved algebraically and requires particular iteration
+        //However, Kepler's equation cannot be solved algebraically and requires Newton iterations
         let E = null;
         let F = null;
         let dp = 5; //Decimal places
@@ -180,21 +174,17 @@ export const planetPositions = {
         //this.eccentricAnomaly = Math.round(E * Math.pow(10, dp)) / Math.pow(10, dp);
         this.eccentricAnomaly = E;
         this.eccentricityAnomaly = Math.round(this.eccentricity * Math.pow(10, dp)) / Math.pow(10, dp);
-        console.log('EccentricAnomaly ' + this.eccentricAnomaly);
         //return this.eccentricAnomaly;
     },
-
     calculatePlanetCoordinates() {
         //Convert from degrees to radians
         this.eccentricAnomaly = this.eccentricAnomaly * Math.PI / 180;
-        console.log('semiMajorAxis: ' + this.semiMajorAxis);
         //4) Compute planet's heliocentric coordinates
         let S = Math.sin(this.eccentricAnomaly)
         let C = Math.cos(this.eccentricAnomaly);
         let x = this.semiMajorAxis * (C - this.eccentricity);
         let y = this.semiMajorAxis * Math.sqrt(1 - (this.eccentricity * this.eccentricity)) * S;
         let planetCenter = [x, y];
-        console.log(planetCenter);
         return planetCenter;
     }
 };

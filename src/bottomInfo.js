@@ -4,7 +4,7 @@ import './CSS/bottomInfo.css';
 
 function poweredBy() {
     return (
-        <div class="App">
+        <div className="App">
             <header className="bottominfo-header">
                 <p>Powered by React<img src={logo} className="App-logo" alt="logo" /></p>
             </header>
