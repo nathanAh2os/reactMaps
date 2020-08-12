@@ -11,7 +11,7 @@
 
 .bottominfo-header {
   background-color: #282c34;
-  min-height: 12vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,3 +32,4 @@
     transform: rotate(360deg);
   }
 }
+

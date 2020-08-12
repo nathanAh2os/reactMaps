@@ -2,7 +2,7 @@
 
 .topMenu {
   background-color: #282c34;
-  max-height: 8vh;
+  height: auto;
   display: flex;
   padding-left: 10px;
   padding-right: 10px;
@@ -11,6 +11,7 @@
   justify-content: left;
   font-size: 20px;
   color: white;
+  width: auto;
 }
 
 .topMenuButtons {
