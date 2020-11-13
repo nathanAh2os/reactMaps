@@ -65,15 +65,17 @@ class solarSystemMap extends Component {
     };
     addCustomSceneObjects = () => {
         //Build the sun
-        let geometry = new THREE.SphereBufferGeometry(0.05, 32, 32);
+        let geometry = new THREE.SphereBufferGeometry(0.009304945274, 32, 32);
         geometry.translate(0, 0, 0);
         let sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
         let sphere = new THREE.Mesh(geometry, sphereMaterial);
         this.scene.add(sphere);
 
         //Render planets and orbit
+        let index = 0;
         this.planets.forEach(planet => {
-            this.renderOrbitAndPlanet(planet.name, planet.orbit, planet.planetCenter, planet.yearLength);
+            this.renderOrbitAndPlanet(planet.name, planet.orbit, planet.planetCenter, planet.yearLength, index);
+            index++;
         });
     };
     startAnimationLoop = () => {
@@ -89,25 +91,59 @@ class solarSystemMap extends Component {
         window.cancelAnimationFrame(this.requestID);
         this.controls.dispose();
     };
-    renderOrbitAndPlanet(planetName, orbitPath, planetCenter, yearLength) {
+    renderOrbitAndPlanet(planetName, orbitPath, planetCenter, yearLength, planetIndex) {
         //Gather the planet's orbit coordinates
         let tempDate = this.state.julianEphemerisDate;
+        let orbitMaterial = null;
         for (let i = 0; i < yearLength; i++) {
-            planetPositions.orderedCalculations(planetName, tempDate);
-            planetCenter = planetPositions.calculatePlanetCoordinates();
-            orbitPath.push(new THREE.Vector3(planetCenter[0], planetCenter[1], 0));
+            planetPositions.trueKeplerianValues(planetIndex, tempDate);
+            planetPositions.calculateMeanAnomaly();
+            planetPositions.calculateEccentricAnomaly();
+            planetCenter = planetPositions.calculatePlanetCoordinates(planetName);
+            orbitPath.push(new THREE.Vector3(planetCenter[0], planetCenter[1], planetCenter[2]));
             tempDate++;
         }
 
         //Render the orbit
         let orbitGeometry = new THREE.BufferGeometry().setFromPoints(orbitPath);
-        let orbitMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
+        switch (planetName) {
+            case "mercury":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#722018" });
+                break;
+            case "venus":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#d23a2d" });
+                break;
+            case "mars":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#d2932d" });
+                break;
+            case "earth":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#2d35d2" });
+                break;
+            case "jupiter":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#ff0a0a" });
+                break;
+            case "saturn":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#008002" });
+                break;
+            case "uranus":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#800068" });
+                break;
+            case "neptune":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#5786ff" });
+                break;
+            case "pluto":
+                orbitMaterial = new THREE.LineBasicMaterial({ color: "#1e9991" });
+                break;
+            default:
+                break;
+        }
+        //let orbitMaterial = new THREE.LineBasicMaterial({ color: "#123455" });
         let planetLine = new THREE.Line(orbitGeometry, orbitMaterial);
         this.scene.add(planetLine);
 
         //Render the planet
         let planetGeometry = new THREE.SphereBufferGeometry(0.01, 32, 32);
-        planetGeometry.translate(planetCenter[0], planetCenter[1], 0);
+        planetGeometry.translate(planetCenter[0], planetCenter[1], planetCenter[2]);
         let sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
         let sphere = new THREE.Mesh(planetGeometry, sphereMaterial);
         this.scene.add(sphere);
