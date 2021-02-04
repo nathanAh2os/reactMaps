@@ -122,12 +122,6 @@ export const planetPositions = {
         let y = r * (Math.sin(this.longitudeAscendNode) * Math.cos(argumentPerihelion + this.trueAnomaly) + Math.cos(this.longitudeAscendNode) * Math.sin(argumentPerihelion + this.trueAnomaly) * Math.cos(this.inclination));
         let z = r * (Math.sin(argumentPerihelion + this.trueAnomaly) * Math.sin(this.inclination));
         let planetCenter = [x, y, z];
-
-
-        if (planetName === "earth") {
-            console.log(r);
-        }
-
         return planetCenter;
     }
 };

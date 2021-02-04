@@ -1,0 +1,26 @@
+Future Features
+
+1) Add labels to planets
+
+2) Add minimum size to planets if scrolled out so you can still see where the planets are located. If scrolled in more, give actual size of planets.
+
+3) Add accurate texture to planets
+
+4) Add moon orbits
+
+5) Add comit orbits
+
+Bugs
+
+1) If windows resized, map gets cut off
+Solved -- Created a resize event listener that reset width and height, then reset the scene and renderer
+
+2) White outline appears when map is clicked on.
+
+3) Orbit Controls on the 2D Renderer can get off from the solar map 
+Solved --
+
+4) Dragging with right click on the orbit controls makes the planet labels go away from their intended planet targets
+Solved --
+
+5) Intitially loading will not include planet labels, resizing window will then render them

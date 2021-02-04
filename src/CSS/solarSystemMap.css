@@ -1,6 +1,18 @@
 .solarSystemMap {
-    height: 80vh;
-    background-color: black;
-    width: auto;
+  height: 80vh;
+  background-color: black;
+  width: auto;
+  position: relative;
 }
-
+.planetLabel {
+  color: #fff;
+  font-family: sans-serif;
+  padding: 2px;
+  background: none;
+}
+.twoDRenderer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
