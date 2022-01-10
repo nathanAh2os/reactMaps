@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './CSS/index.css';
-//import App from './App';
-import Menu from './menu';
-import BottomInfo from './bottomInfo';
-import SolarSystemMap from './solarSystemMap';
+import Menu from './Components/menu';
+import BottomInfo from './Components/bottomInfo';
+import SolarSystemMap from './Components/solarSystemMap';
 import * as serviceWorker from './serviceWorker';
 
 

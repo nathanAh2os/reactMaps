@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './CSS/solarSystemMap.css';
-import { planetPositions } from './calcPlanetPos';
+import '../CSS/solarSystemMap.css';
+import { planetPositions } from '../calcPlanetPos';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer';
@@ -55,12 +55,13 @@ class solarSystemMap extends Component {
         this.camera = new THREE.PerspectiveCamera(
             75, // fov = field of view
             width / height, // aspect ratio
-            0.0000001, // near plane
+            0.000300, // near plane
             10000 // far plane
         );
         this.camera.position.z = 9;
         this.camera.zoom = 0.25;
-    
+        this.camera.zoomSpeed = 1;
+
         //Set 3D Renderer
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize(width, height);
@@ -84,7 +85,7 @@ class solarSystemMap extends Component {
         let sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
         let sphere = new THREE.Mesh(geometry, sphereMaterial);
         this.scene.add(sphere);
-
+        
         //Call render function for each planet
         let index = 0;
         this.planets.forEach(planet => {
@@ -94,6 +95,7 @@ class solarSystemMap extends Component {
             index++;
         });
     };
+
     startAnimationLoop = () => {
         this.renderer.render(this.scene, this.camera);
         this.labelRenderer.render(this.scene, this.camera);
@@ -102,6 +104,8 @@ class solarSystemMap extends Component {
         // to update an animation before the next repaint
         this.requestID = window.requestAnimationFrame(this.startAnimationLoop);
     };
+
+    //If browser window size is changed, we need to re-render our map to fit accordingly
     handleWindowResize = () => {
         const width = this.mount.clientWidth;
         const height = this.mount.clientHeight;
@@ -114,6 +118,7 @@ class solarSystemMap extends Component {
         // .updateProjectionMatrix for the changes to take effect.
         this.camera.updateProjectionMatrix();
     };
+
     componentWillUnmount() {
         window.removeEventListener("resize", this.handleWindowResize);
         window.cancelAnimationFrame(this.requestID);

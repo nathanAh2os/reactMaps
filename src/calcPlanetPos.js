@@ -76,8 +76,8 @@ export const planetPositions = {
         this.meanAnomaly = this.meanAnomaly * Math.PI / 180;
     },
     calculateEccentricAnomaly() {
-        //To calculate the eccentric anomaly, we use Kepler's equation 
-        //--> meanAnomaly = eccentricAnomaly - (eccentricity)sin(eccentricAnomaly) --> M = E = eSin(E)
+        //To calculate the eccentric anomaly, we use Kepler's equation: 
+        //meanAnomaly = eccentricAnomaly - (eccentricity)sin(eccentricAnomaly) --> M = E = eSin(E)
         //However, Kepler's equation cannot be solved algebraically and requires Newton iterations
         //We will iterate within 0.001 values or 100 times over
         let E = null;
@@ -107,11 +107,13 @@ export const planetPositions = {
     },
     calculatePlanetCoordinates(planetName) {
         //http://www.stjarnhimlen.se/comp/ppcomp.html#19
+
         //Convert from degrees to radians
         this.eccentricAnomaly = this.eccentricAnomaly * Math.PI / 180;
         this.longitudeAscendNode = this.longitudeAscendNode * Math.PI / 180;
         this.longitudePerihelion = this.longitudeAscendNode * Math.PI / 180;
         this.inclination = this.inclination * Math.PI / 180;
+
         //4) Compute planet's heliocentric coordinates
         let distanceX = this.semiMajorAxis * (Math.cos(this.eccentricAnomaly) - this.eccentricity);
         let distanceY = this.semiMajorAxis * (Math.sqrt(1 - (this.eccentricity * this.eccentricity)) * Math.sin(this.eccentricAnomaly));

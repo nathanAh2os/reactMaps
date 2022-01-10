@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './CSS/logo.svg';
-import './CSS/bottomInfo.css';
+import logo from '../CSS/logo.svg';
+import '../CSS/bottomInfo.css';
 
 function poweredBy() {
     return (

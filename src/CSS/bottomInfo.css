@@ -1,5 +1,5 @@
 .App-logo {
-  height: 30px;
+  height: 5vh;
   pointer-events: none;
 }
 
@@ -35,4 +35,3 @@
     transform: rotate(360deg);
   }
 }
-
