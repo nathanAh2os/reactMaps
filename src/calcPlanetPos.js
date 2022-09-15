@@ -105,7 +105,7 @@ export const planetPositions = {
         this.eccentricAnomaly = E;
         this.eccentricityAnomaly = Math.round(this.eccentricity * Math.pow(10, dp)) / Math.pow(10, dp);
     },
-    calculatePlanetCoordinates(planetName) {
+    calculatePlanetCoordinates() {
         //http://www.stjarnhimlen.se/comp/ppcomp.html#19
 
         //Convert from degrees to radians

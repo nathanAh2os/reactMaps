@@ -1,10 +1,11 @@
 .solarSystemMap {
   height: 85vh;
-  background-color: black;
+  background-color: #38383B;
   width: auto;
   position: relative;
+  overflow: hidden;
 }
-.planetLabel {
+.satelliteLabel {
   color: #fff;
   font-family: sans-serif;
   padding: 2px;
@@ -12,7 +13,8 @@
 }
 .twoDRenderer {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  height: 85vh;
+  width: auto;
   top: 0;
+  border: none;
 }
